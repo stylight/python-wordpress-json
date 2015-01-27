@@ -14,7 +14,7 @@ This library provides a very thin wrapper around the Wordpress JSON API (WP-API)
 
 import requests
 
-__version__ = '0.1.0',
+__version__ = '0.1.1',
 __author__ = 'Raul Taranu, Dimitar Roustchev'
 
 methods = {
@@ -241,7 +241,7 @@ class WordpressJsonWrapper(object):
             self.site + endpoint,
             auth=self.auth,
             params=params,
-            data=data)
+            json=data)
 
         if http_response.status_code not in [200, 201]:
             raise WordpressError(" ".join([
