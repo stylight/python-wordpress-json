@@ -1,6 +1,9 @@
 python-wordpress-json
 ---------------------
 
+.. image:: https://travis-ci.org/stylight/python-wordpress-json.svg?branch=master
+    :target: https://travis-ci.org/stylight/python-wordpress-json
+
 Super thin Python wrapper for the `Wordpress REST API <http://wp-api.org/>`_ developed by
 `Stylight <http://www.stylight.de/>`_. Supports the documented read and write endpoints. Extensions and pull requests are encouraged and welcome.
 
