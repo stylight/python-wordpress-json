@@ -14,7 +14,7 @@ This library provides a very thin wrapper around the Wordpress JSON API (WP-API)
 
 import requests
 
-__version__ = '0.0.1',
+__version__ = '0.1.0',
 __author__ = 'Raul Taranu, Dimitar Roustchev'
 
 methods = {
