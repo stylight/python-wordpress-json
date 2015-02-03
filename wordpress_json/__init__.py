@@ -14,7 +14,7 @@ This library provides a very thin wrapper around the Wordpress JSON API (WP-API)
 
 import requests
 
-__version__ = '0.1.1',
+__version__ = '0.1.2',
 __author__ = 'Raul Taranu, Dimitar Roustchev'
 
 methods = {
@@ -158,61 +158,63 @@ class WordpressJsonWrapper(object):
         """
         >>> wp = WordpressJsonWrapper(None, None, None)
         >>> wp._prepare_req('get_posts')
-        ('GET', '/posts', {}, {})
+        ('GET', '/posts', {}, {}, {})
         >>> wp._prepare_req('list_posts')
-        ('GET', '/posts', {}, {})
+        ('GET', '/posts', {}, {}, {})
         >>> wp._prepare_req('get_posts', filter={'post_status': 'draft'})
-        ('GET', '/posts', {'filter[post_status]': 'draft'}, {})
+        ('GET', '/posts', {'filter[post_status]': 'draft'}, {}, {})
         >>> wp._prepare_req('get_posts', post_id=5)
-        ('GET', '/posts/5', {}, {})
+        ('GET', '/posts/5', {}, {}, {})
         >>> wp._prepare_req('get_post', post_id=6)
-        ('GET', '/posts/6', {}, {})
+        ('GET', '/posts/6', {}, {}, {})
         >>> wp._prepare_req('edit_post', post_id=7, data={'foo': 'bar'})
-        ('PUT', '/posts/7', {}, {'foo': 'bar'})
+        ('PUT', '/posts/7', {}, {'foo': 'bar'}, {})
         >>> wp._prepare_req('create_post', data={'foo': 'bar'})
-        ('POST', '/posts', {}, {'foo': 'bar'})
+        ('POST', '/posts', {}, {'foo': 'bar'}, {})
         >>> wp._prepare_req('delete_post', post_id=8)
-        ('DELETE', '/posts/8', {}, {})
+        ('DELETE', '/posts/8', {}, {}, {})
         >>> wp._prepare_req('get_post_revisions', post_id=9)
-        ('GET', '/posts/9/revisions', {}, {})
+        ('GET', '/posts/9/revisions', {}, {}, {})
         >>> wp._prepare_req('get_revisions', post_id=9)
-        ('GET', '/posts/9/revisions', {}, {})
+        ('GET', '/posts/9/revisions', {}, {}, {})
         >>> wp._prepare_req('get_post_meta', post_id=91)
-        ('GET', '/posts/91/meta', {}, {})
+        ('GET', '/posts/91/meta', {}, {}, {})
         >>> wp._prepare_req('get_meta', post_id=91)
-        ('GET', '/posts/91/meta', {}, {})
+        ('GET', '/posts/91/meta', {}, {}, {})
         >>> wp._prepare_req('get_meta', post_id=91, meta_id=5)
-        ('GET', '/posts/91/meta/5', {}, {})
+        ('GET', '/posts/91/meta/5', {}, {}, {})
         >>> wp._prepare_req('create_meta', post_id=91, meta_id=5)
-        ('POST', '/posts/91/meta/5', {}, {})
+        ('POST', '/posts/91/meta/5', {}, {}, {})
         >>> wp._prepare_req('update_meta', post_id=91, meta_id=5)
-        ('PUT', '/posts/91/meta/5', {}, {})
+        ('PUT', '/posts/91/meta/5', {}, {}, {})
         >>> wp._prepare_req('get_user', user_id=4)
-        ('GET', '/users/4', {}, {})
+        ('GET', '/users/4', {}, {}, {})
         >>> wp._prepare_req('get_user', user_id='me')
-        ('GET', '/users/me', {}, {})
+        ('GET', '/users/me', {}, {}, {})
         >>> wp._prepare_req('get_taxonomies')
-        ('GET', '/taxonomies', {}, {})
+        ('GET', '/taxonomies', {}, {}, {})
         >>> wp._prepare_req('get_taxonomies', taxonomy_id='category')
-        ('GET', '/taxonomies/category', {}, {})
+        ('GET', '/taxonomies/category', {}, {}, {})
         >>> wp._prepare_req('get_taxonomies', taxonomy_id='post_tag')
-        ('GET', '/taxonomies/post_tag', {}, {})
+        ('GET', '/taxonomies/post_tag', {}, {}, {})
         >>> wp._prepare_req('get_taxonomy', taxonomy_id='post_format')
-        ('GET', '/taxonomies/post_format', {}, {})
+        ('GET', '/taxonomies/post_format', {}, {}, {})
         >>> wp._prepare_req('get_taxonomy', taxonomy_id='post_status')
-        ('GET', '/taxonomies/post_status', {}, {})
+        ('GET', '/taxonomies/post_status', {}, {}, {})
         >>> wp._prepare_req('get_categories')
-        ('GET', '/taxonomies/category', {}, {})
+        ('GET', '/taxonomies/category', {}, {}, {})
         >>> wp._prepare_req('get_tags')
-        ('GET', '/taxonomies/post_tag', {}, {})
+        ('GET', '/taxonomies/post_tag', {}, {}, {})
         >>> wp._prepare_req('get_formats')
-        ('GET', '/taxonomies/post_format', {}, {})
+        ('GET', '/taxonomies/post_format', {}, {}, {})
         >>> wp._prepare_req('get_statuses')
-        ('GET', '/taxonomies/post_status', {}, {})
+        ('GET', '/taxonomies/post_status', {}, {}, {})
         >>> wp._prepare_req('get_terms', taxonomy_id='post_status')
-        ('GET', '/taxonomies/post_status/terms', {}, {})
+        ('GET', '/taxonomies/post_status/terms', {}, {}, {})
         >>> wp._prepare_req('get_term', taxonomy_id='post_status', term_id=3)
-        ('GET', '/taxonomies/post_status/terms/3', {}, {})
+        ('GET', '/taxonomies/post_status/terms/3', {}, {}, {})
+        >>> wp._prepare_req('get_posts', headers={'foo': 'bar'})
+        ('GET', '/posts', {}, {}, {'foo': 'bar'})
         """
         assert len(method_name.split('_')) > 1
         method = self._determine_method(method_name.split('_')[0])
@@ -231,17 +233,26 @@ class WordpressJsonWrapper(object):
         if kw.get('data'):
             post_data = kw.get('data')
 
-        return (method.upper(), endpoint, url_params, post_data)
+        # headers
+        headers = dict()
+        if kw.get('headers'):
+            headers = kw.get('headers')
+
+        return (method.upper(), endpoint, url_params, post_data, headers)
 
     def _request(self, method_name, **kw):
-        method, endpoint, params, data = self._prepare_req(method_name, **kw)
+        method, endpoint, params, data, headers = self._prepare_req(
+            method_name, **kw
+        )
 
         http_response = requests.request(
             method,
             self.site + endpoint,
             auth=self.auth,
             params=params,
-            json=data)
+            json=data,
+            headers=headers
+        )
 
         if http_response.status_code not in [200, 201]:
             raise WordpressError(" ".join([

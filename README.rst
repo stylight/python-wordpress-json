@@ -37,8 +37,17 @@ Usage
 
     wp = WordpressJsonWrapper("http://example.com/wp-json", "wp_user", "wp_password")
 
+    # optional headers
+    headers = {
+        "User-Agent": "curl",
+        "Content-Type": "text/json",
+        # ...
+    }
+
     # make requests, e.g. list posts
     posts = wp.get_posts()
+    # or with headers
+    posts = wp.get_posts(headers=headers)
 
     # list posts with filter
     posts = wp.get_posts(filter={"status": "draft"})
@@ -50,6 +59,7 @@ Usage
         "exerpt": ""
         # ...
     }
+
     # only one of title, content and excerpt is required to create a post
     wp.create_post(data=data)
 

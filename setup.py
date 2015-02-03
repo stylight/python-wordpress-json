@@ -10,7 +10,7 @@ except IOError:
 
 setup(
     name='wordpress_json',
-    version='0.1.1',
+    version='0.1.2',
     description='A thin wrapper for the Wordpress JSON API',
     author='Raul Taranu, Dimitar Roustchev',
     author_email='raul.taranu@stylight.com, dimitar.roustchev@stylight.com',
