@@ -1,12 +1,24 @@
 #! /usr/bin/env python
 # encoding: utf-8
 
+import os
+import sys
+
 from setuptools import setup
 
+if sys.argv[-1] == 'publish':
+    os.system('python setup.py sdist upload')
+    sys.exit()
+
 try:
-    long_description = open('README.md', 'r').read()
+    long_description = open('README.rst', 'r').read()
 except IOError:
     long_description = "A thin wrapper around the Wordpress JSON API"
+
+with open('README.rst', 'r', 'utf-8') as f:
+    readme = f.read()
+with open('HISTORY.rst', 'r', 'utf-8') as f:
+    history = f.read()
 
 setup(
     name='wordpress_json',
