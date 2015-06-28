@@ -7,6 +7,25 @@ python-wordpress-json
 Super thin Python wrapper for the `Wordpress REST API <http://wp-api.org/>`_ developed by
 `Stylight <http://www.stylight.de/>`_. Supports the documented read and write endpoints. Extensions and pull requests are encouraged and welcome.
 
+Before being able to use this package make sure you followed the following steps:
+
+1. You need to install the WP-API Plugin. To do so:
+  - Go to your Wordpress Dashboard
+  - Click on Plugins in the left sidebar
+  - Search for "WP-API". Install the plugin named "WP REST API (WP API)", by clicking on the "Install" button.
+  - Activate the plugin on the next screen.
+
+2. You need to install and activate the Basic-Auth plugin for the WP-API :
+
+  - download https://github.com/WP-API/Basic-Auth/archive/master.zip
+  - Open your Wordpress Admin Dashboard
+  - Click on Plugins in the left sidebar
+  - Click on "Add New" on the top right, next to "Plugin"
+  - Click on "Upload Plugin", Choose File, and select the file you downloaded at step 1 (master.zip)
+  - Click on Install Now
+  - Activate the plugin on the next screen.
+
+
 Limitations:
 
 * doesn't check input parameters
@@ -22,7 +41,7 @@ Installation
 
 ::
 
-    pip install wordpress-json
+    sudo pip install wordpress-json
 
 `Official PyPI wordpress-json page <https://pypi.python.org/pypi/wordpress-json/>`_
 
@@ -31,7 +50,8 @@ Usage
 
 .. code-block:: python
 
-    from wordpress-json import WordpressJsonWrapper
+    from wordpress_json import WordpressJsonWrapper
+    import json
 
     # construct a wrapper
 
@@ -45,26 +65,39 @@ Usage
     }
 
     # make requests, e.g. list posts
+    print "----------- list posts -------------"
+
     posts = wp.get_posts()
+    print json.dumps(posts);
+
     # or with headers
+    print "------------ list posts with headers------------"
     posts = wp.get_posts(headers=headers)
+    print json.dumps(posts);
 
     # list posts with filter
+    print "-------------list posts with draft status-----------"
     posts = wp.get_posts(filter={"status": "draft"})
+    print json.dumps(posts);
 
-    # create post
+    
+    print "------------- create new post-----------"
+
     data = {
-        "title": "My first pony",
-        "content": "He's wild!",
-        "exerpt": ""
-        # ...
-    }
+            "title": "My first pony",
+            "content": "He's wild!",
+            "exerpt": ""
+            # ...
+        }
 
     # only one of title, content and excerpt is required to create a post
-    wp.create_post(data=data)
+    new_post = wp.create_post(data=data)
+    print json.dumps(new_post);
 
     # get metadata for a post
-    meta = wp.get_meta(post_id=4)
-    # or
-    meta = wp.get_meta(post_id=4, meta_id=5)
+    print "------------- Get Metadata-----------"
+    meta = wp.get_meta(post_id=1)
+    print json.dumps(meta);
 
+    # or
+    meta = wp.get_meta(post_id=1, meta_id=5)
