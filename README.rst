@@ -7,7 +7,29 @@ python-wordpress-json
 Super thin Python wrapper for the `Wordpress REST API <http://wp-api.org/>`_ developed by
 `Stylight <http://www.stylight.de/>`_. Supports the documented read and write endpoints. Extensions and pull requests are encouraged and welcome.
 
-Before being able to use this package make sure you followed the following steps:
+Limitations:
+
+* doesn't check input parameters
+* returns a single dictionary or a list of dictionaries, depending on the API endpoint
+* only supports basic auth, and it currently cannot be used without authentication
+
+Dependencies:
+
+* requests
+
+Installation
+============
+
+::
+
+    pip install wordpress-json
+
+`Official PyPI wordpress-json page <https://pypi.python.org/pypi/wordpress-json/>`_
+
+Before being able to use this package make sure you configure Wordpress properly;
+
+Wordpress configuration
+=======================
 
 1. You need to install the WP-API Plugin. To do so:
   - Go to your Wordpress Dashboard
@@ -24,26 +46,6 @@ Before being able to use this package make sure you followed the following steps
   - Click on "Upload Plugin", Choose File, and select the file you downloaded at step 1 (master.zip)
   - Click on Install Now
   - Activate the plugin on the next screen.
-
-
-Limitations:
-
-* doesn't check input parameters
-* returns a single dictionary or a list of dictionaries, depending on the API endpoint
-* only supports basic auth, and it currently cannot be used without authentication
-
-Dependencies:
-
-* requests
-
-Installation
-============
-
-::
-
-    sudo pip install wordpress-json
-
-`Official PyPI wordpress-json page <https://pypi.python.org/pypi/wordpress-json/>`_
 
 Usage
 ============
