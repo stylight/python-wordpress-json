@@ -215,6 +215,8 @@ class WordpressJsonWrapper(object):
         ('GET', '/taxonomies/post_status/terms/3', {}, {}, {})
         >>> wp._prepare_req('get_posts', headers={'foo': 'bar'})
         ('GET', '/posts', {}, {}, {'foo': 'bar'})
+        >>> wp._prepare_req('get_posts', params={'context': 'edit'})
+        ('GET', '/posts', {'context': 'edit'}, {}, {})
         """
         assert len(method_name.split('_')) > 1
         method = self._determine_method(method_name.split('_')[0])
@@ -227,6 +229,14 @@ class WordpressJsonWrapper(object):
         if kw.get('filter'):
             for query_param, value in kw.get('filter').iteritems():
                 url_params.update({'filter[%s]' % query_param: value})
+
+
+        # raw_url_params
+        #url_params = dict()
+        if kw.get('params'):
+            for query_param, value in kw.get('params').iteritems():
+                url_params.update({query_param : value})
+
 
         # post data
         post_data = dict()
