@@ -3,6 +3,13 @@
 Release History
 ---------------
 
+0.1.3 (2015-07-16)
+++++++++++++++++++
+
+**Improvements**
+
+- Allow raw url parameters to be passed in and used for the API calls
+
 0.1.2 (2015-02-03)
 ++++++++++++++++++
 
