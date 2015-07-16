@@ -10,20 +10,16 @@ if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
 
-try:
-    long_description = open('README.rst', 'r').read()
-except IOError:
-    long_description = "A thin wrapper around the Wordpress JSON API"
-
-with open('README.rst', 'r', 'utf-8') as f:
+with open('README.rst', 'r') as f:
     readme = f.read()
-with open('HISTORY.rst', 'r', 'utf-8') as f:
+with open('HISTORY.rst', 'r') as f:
     history = f.read()
 
 setup(
     name='wordpress_json',
-    version='0.1.2',
+    version='0.1.4',
     description='A thin wrapper for the Wordpress JSON API',
+    long_description=readme + '\n\n' + history,
     author='Raul Taranu, Dimitar Roustchev',
     author_email='raul.taranu@stylight.com, dimitar.roustchev@stylight.com',
     url='http://github.com/stylight/python-wordpress-json',
