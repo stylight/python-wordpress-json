@@ -5,7 +5,8 @@
 WordpressJsonWrapper
 ~~~~~~~~~~~~~~~~~~~~
 
-This library provides a very thin wrapper around the Wordpress JSON API (WP-API).
+This library provides a very thin wrapper around the
+Wordpress JSON API (WP-API).
 
 :copyright: (c) 2015 Stylight GmbH
 :licence: MIT, see LICENSE for more details.
@@ -230,13 +231,10 @@ class WordpressJsonWrapper(object):
             for query_param, value in kw.get('filter').iteritems():
                 url_params.update({'filter[%s]' % query_param: value})
 
-
-        # raw_url_params
-        #url_params = dict()
+        # url params
         if kw.get('params'):
             for query_param, value in kw.get('params').iteritems():
-                url_params.update({query_param : value})
-
+                url_params.update({query_param: value})
 
         # post data
         post_data = dict()
