@@ -3,6 +3,13 @@
 Release History
 ---------------
 
+0.1.4 (2015-07-16)
+++++++++++++++++++
+
+**Documentation**
+
+- Fix syntax errors in README.rst and HISTORY.rst
+
 0.1.3 (2015-07-16)
 ++++++++++++++++++
 
