@@ -1,5 +1,5 @@
 python-wordpress-json
----------------------
+=====================
 
 .. image:: https://travis-ci.org/stylight/python-wordpress-json.svg?branch=master
     :target: https://travis-ci.org/stylight/python-wordpress-json
@@ -18,7 +18,7 @@ Dependencies:
 * requests
 
 Installation
-============
+------------
 
 ::
 
@@ -29,9 +29,10 @@ Installation
 Before being able to use this package make sure you configure Wordpress properly;
 
 Wordpress configuration
-=======================
+-----------------------
 
 1. You need to install the WP-API Plugin. To do so:
+
   - Go to your Wordpress Dashboard
   - Click on Plugins in the left sidebar
   - Search for "WP-API". Install the plugin named "WP REST API (WP API)", by clicking on the "Install" button.
@@ -48,7 +49,7 @@ Wordpress configuration
   - Activate the plugin on the next screen.
 
 Usage
-============
+------------
 
 .. code-block:: python
 
@@ -82,7 +83,7 @@ Usage
     posts = wp.get_posts(filter={"status": "draft"})
     print json.dumps(posts);
 
-    
+
     print "------------- create new post-----------"
 
     data = {
