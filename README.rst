@@ -47,6 +47,8 @@ Wordpress configuration
   - Click on "Upload Plugin", Choose File, and select the file you downloaded at step 1 (master.zip)
   - Click on Install Now
   - Activate the plugin on the next screen.
+ 
+3. Change permalink configuration to 'Post name' in Permalink Settings.
 
 Usage
 ------------
