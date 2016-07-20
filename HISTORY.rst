@@ -3,6 +3,18 @@
 Release History
 ---------------
 
+0.2.1 (2016-07-20)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Fix syntax errors in README.rst
+- Add missing dependency `six` to setup.py
+
+**Miscellaneous**
+
+- Update authors
+
 0.2.0 (2016-07-20)
 ++++++++++++++++++
 
