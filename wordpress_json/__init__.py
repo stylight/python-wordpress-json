@@ -249,7 +249,6 @@ class WordpressJsonWrapper(object):
         method, endpoint, params, data, headers = self._prepare_req(
             method_name, **kw
         )
-        print(method, self.site + endpoint, headers, self.auth)
 
         http_response = requests.request(
             method,
@@ -259,8 +258,6 @@ class WordpressJsonWrapper(object):
             json=data,
             headers=headers
         )
-
-        print(http_response.status_code, http_response.reason, http_response.json())
 
         if http_response.status_code not in [200, 201]:
             raise WordpressError(" ".join([
