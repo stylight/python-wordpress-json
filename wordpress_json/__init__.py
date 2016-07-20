@@ -14,6 +14,7 @@ Wordpress JSON API (WP-API).
 """
 
 import requests
+import six
 
 __version__ = '0.1.2',
 __author__ = 'Raul Taranu, Dimitar Roustchev'
@@ -38,21 +39,12 @@ component_conversions = {
     'category': 'categories',
     'status': 'statuses',
     'tag': 'tags',
+    'type': 'types',
 }
 
 component_expansions = {
     'revisions': ['posts', 'revisions'],
     'meta': ['posts', 'meta'],
-    # 'categories': ['taxonomies', 'category'],
-    # 'category': ['taxonomies', 'category'],
-    # 'tags': ['taxonomies', 'post_tag'],
-    # 'tag': ['taxonomies', 'post_tag'],
-    'formats': ['taxonomies', 'post_format'],
-    'format': ['taxonomies', 'post_format'],
-    # 'statuses': ['taxonomies', 'post_status'],
-    # 'status': ['taxonomies', 'post_status'],
-    'terms': ['taxonomies', 'terms'],
-    'term': ['taxonomies', 'terms'],
 }
 
 
@@ -121,7 +113,11 @@ class WordpressJsonWrapper(object):
         >>> wp._build_endpoint(['revisions'], {'post': 12})
         '/posts/12/revisions'
         >>> wp._build_endpoint(['categories'], {'post': 12})
-        '/taxonomies/category'
+        '/categories'
+        >>> wp._build_endpoint(['categories'], {'category': 1})
+        '/categories/1'
+        >>> wp._build_endpoint(['statuses'], {'status': 3})
+        '/statuses/3'
         >>> wp._build_endpoint(['posts', 'meta'], {'post': 42})
         '/posts/42/meta'
         >>> wp._build_endpoint(['posts', 'meta'], {'post': 42, 'meta': 37})
@@ -139,8 +135,10 @@ class WordpressJsonWrapper(object):
                 endpoint += '/%s' % ids.get(component)
             elif ids.get(component[:-1]):
                 endpoint += '/%s' % ids.get(component[:-1])
-            elif component == 'taxonomies' and ids.get('taxonomy'):
-                endpoint += '/%s' % ids.get('taxonomy')
+            elif component.endswith('ies') and ids.get(component[:-3] + 'y'):
+                endpoint += '/%s' % ids.get(component[:-3] + 'y')
+            elif component.endswith('es') and ids.get(component[:-2]):
+                endpoint += '/%s' % ids.get(component[:-2])
         return endpoint
 
     def _determine_method(self, verb):
@@ -206,17 +204,13 @@ class WordpressJsonWrapper(object):
         >>> wp._prepare_req('get_taxonomy', taxonomy_id='post_status')
         ('GET', '/taxonomies/post_status', {}, {}, {})
         >>> wp._prepare_req('get_categories')
-        ('GET', '/taxonomies/category', {}, {}, {})
+        ('GET', '/categories', {}, {}, {})
         >>> wp._prepare_req('get_tags')
-        ('GET', '/taxonomies/post_tag', {}, {}, {})
-        >>> wp._prepare_req('get_formats')
-        ('GET', '/taxonomies/post_format', {}, {}, {})
+        ('GET', '/tags', {}, {}, {})
+        >>> wp._prepare_req('get_types')
+        ('GET', '/types', {}, {}, {})
         >>> wp._prepare_req('get_statuses')
-        ('GET', '/taxonomies/post_status', {}, {}, {})
-        >>> wp._prepare_req('get_terms', taxonomy_id='post_status')
-        ('GET', '/taxonomies/post_status/terms', {}, {}, {})
-        >>> wp._prepare_req('get_term', taxonomy_id='post_status', term_id=3)
-        ('GET', '/taxonomies/post_status/terms/3', {}, {}, {})
+        ('GET', '/statuses', {}, {}, {})
         >>> wp._prepare_req('get_posts', headers={'foo': 'bar'})
         ('GET', '/posts', {}, {}, {'foo': 'bar'})
         >>> wp._prepare_req('get_posts', params={'context': 'edit'})
@@ -231,12 +225,12 @@ class WordpressJsonWrapper(object):
         # filters
         url_params = dict()
         if kw.get('filter'):
-            for query_param, value in kw.get('filter').iteritems():
+            for query_param, value in six.iteritems(kw.get('filter')):
                 url_params.update({'filter[%s]' % query_param: value})
 
         # url params
         if kw.get('params'):
-            for query_param, value in kw.get('params').iteritems():
+            for query_param, value in six.iteritems(kw.get('params')):
                 url_params.update({query_param: value})
 
         # post data
