@@ -35,19 +35,22 @@ component_conversions = {
     'post': 'posts',
     'user': 'users',
     'taxonomy': 'taxonomies',
+    'category': 'categories',
+    'status': 'statuses',
+    'tag': 'tags',
 }
 
 component_expansions = {
     'revisions': ['posts', 'revisions'],
     'meta': ['posts', 'meta'],
-    'categories': ['taxonomies', 'category'],
-    'category': ['taxonomies', 'category'],
-    'tags': ['taxonomies', 'post_tag'],
-    'tag': ['taxonomies', 'post_tag'],
+    # 'categories': ['taxonomies', 'category'],
+    # 'category': ['taxonomies', 'category'],
+    # 'tags': ['taxonomies', 'post_tag'],
+    # 'tag': ['taxonomies', 'post_tag'],
     'formats': ['taxonomies', 'post_format'],
     'format': ['taxonomies', 'post_format'],
-    'statuses': ['taxonomies', 'post_status'],
-    'status': ['taxonomies', 'post_status'],
+    # 'statuses': ['taxonomies', 'post_status'],
+    # 'status': ['taxonomies', 'post_status'],
     'terms': ['taxonomies', 'terms'],
     'term': ['taxonomies', 'terms'],
 }
@@ -252,6 +255,7 @@ class WordpressJsonWrapper(object):
         method, endpoint, params, data, headers = self._prepare_req(
             method_name, **kw
         )
+        print(method, self.site + endpoint, headers, self.auth)
 
         http_response = requests.request(
             method,
@@ -261,6 +265,8 @@ class WordpressJsonWrapper(object):
             json=data,
             headers=headers
         )
+
+        print(http_response.status_code, http_response.reason, http_response.json())
 
         if http_response.status_code not in [200, 201]:
             raise WordpressError(" ".join([
