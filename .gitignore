@@ -61,3 +61,10 @@ docs/_build/
 
 # PyBuilder
 target/
+.idea/.name
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/python-wordpress-json.iml
+.idea/vcs.xml
+.idea/workspace.xml
