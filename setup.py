@@ -19,7 +19,7 @@ with open('HISTORY.rst', 'r', 'utf-8') as f:
 
 setup(
     name='wordpress_json',
-    version='0.2.1',
+    version='0.2.2',
     description='A thin wrapper for the Wordpress JSON API',
     long_description=readme + '\n\n' + history,
     author='Raul Taranu, Julie MacDonell, Dimitar Roustchev',
@@ -30,8 +30,8 @@ setup(
     package_data={'': ['*.rst']},
     include_package_data=True,
     install_requires=[
-        'requests==2.10.0',
-        'six==1.10.0',
+        'requests',
+        'six',
     ],
     setup_requires=["nose>=1.0"],
     test_suite='nose.collector',

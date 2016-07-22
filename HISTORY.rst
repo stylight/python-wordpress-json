@@ -3,6 +3,13 @@
 Release History
 ---------------
 
+0.2.2 (2016-07-22)
+++++++++++++++++++
+
+**Improvements**
+
+- six and requests libraries not pinned to versions
+
 0.2.1 (2016-07-20)
 ++++++++++++++++++
 
