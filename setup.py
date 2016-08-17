@@ -19,7 +19,7 @@ with open('HISTORY.rst', 'r', 'utf-8') as f:
 
 setup(
     name='wordpress_json',
-    version='0.2.2',
+    version='0.2.3',
     description='A thin wrapper for the Wordpress JSON API',
     long_description=readme + '\n\n' + history,
     author='Raul Taranu, Julie MacDonell, Dimitar Roustchev',
