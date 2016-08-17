@@ -64,7 +64,7 @@ Usage
 
 .. code-block:: python
 
-    >>> wp = WordpressJsonWrapper('http://example.com/wp-json', 'wp_user', 'wp_password')
+    >>> wp = WordpressJsonWrapper('http://example.com/wp-json/wp/v2', 'wp_user', 'wp_password')
     >>> posts = wp.get_posts()
     >>> posts[0].keys()
     dict_keys(['format', 'featured_media', 'author', ...])
