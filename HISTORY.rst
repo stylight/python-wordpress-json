@@ -3,6 +3,17 @@
 Release History
 ---------------
 
+0.2.3 (2016-08-17)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Fix error handling
+
+**Documentation**
+
+- Update example usage with correct namespace for v2
+
 0.2.2 (2016-07-22)
 ++++++++++++++++++
 
