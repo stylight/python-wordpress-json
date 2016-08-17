@@ -16,7 +16,7 @@ Wordpress JSON API (WP-API).
 import requests
 import six
 
-__version__ = '0.1.2',
+__version__ = '0.2.3',
 __author__ = 'Raul Taranu, Dimitar Roustchev'
 
 methods = {
@@ -260,7 +260,6 @@ class WordpressJsonWrapper(object):
         )
 
         if http_response.status_code not in [200, 201]:
-            print(http_response.headers.get('Content-Type'))
             if 'application/json' in http_response.headers.get('Content-Type'):
                 code = http_response.json().get('code')
                 message = http_response.json().get('message')
