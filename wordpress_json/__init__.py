@@ -260,12 +260,18 @@ class WordpressJsonWrapper(object):
         )
 
         if http_response.status_code not in [200, 201]:
+            print(http_response.headers.get('Content-Type'))
+            if 'application/json' in http_response.headers.get('Content-Type'):
+                code = http_response.json().get('code')
+                message = http_response.json().get('message')
+            else:
+                code = http_response.status_code
+                message = http_response.text
             raise WordpressError(" ".join([
                 str(http_response.status_code),
                 str(http_response.reason),
-                ": ",
-                '[%s] %s' % (http_response.json().get('code'),
-                             http_response.json().get('message'))
+                ":",
+                '[{code}] {message}'.format(code=code, message=message)
             ]))
         else:
             return http_response.json()
