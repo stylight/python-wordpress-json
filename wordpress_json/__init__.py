@@ -264,8 +264,8 @@ class WordpressJsonWrapper(object):
                 str(http_response.status_code),
                 str(http_response.reason),
                 ": ",
-                '[%s] %s' % (http_response.json()[0].get('code'),
-                             http_response.json()[0].get('message'))
+                '[%s] %s' % (http_response.json().get('code'),
+                             http_response.json().get('message'))
             ]))
         else:
             return http_response.json()
