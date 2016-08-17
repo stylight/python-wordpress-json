@@ -16,7 +16,7 @@ Wordpress JSON API (WP-API).
 import requests
 import six
 
-__version__ = '0.2.3',
+__version__ = '0.2.4',
 __author__ = 'Raul Taranu, Dimitar Roustchev'
 
 methods = {
