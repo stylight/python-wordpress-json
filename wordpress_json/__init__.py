@@ -250,12 +250,19 @@ class WordpressJsonWrapper(object):
             method_name, **kw
         )
 
+        if 'application/json' not in headers.get('Content-Type', ''):
+            json = None
+        else:
+            json = data
+            data = None
+
         http_response = requests.request(
             method,
             self.site + endpoint,
             auth=self.auth,
             params=params,
-            json=data,
+            data=data,
+            json=json,
             headers=headers
         )
 
