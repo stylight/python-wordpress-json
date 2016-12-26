@@ -26,9 +26,9 @@ methods = {
     'list': 'GET',
     'post': 'POST',
     'create': 'POST',
-    'put': 'PUT',
-    'update': 'PUT',
-    'edit': 'PUT',
+    'put': 'POST',
+    'update': 'POST',
+    'edit': 'POST',
     'delete': 'DELETE',
 }
 
