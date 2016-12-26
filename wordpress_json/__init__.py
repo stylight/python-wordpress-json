@@ -279,8 +279,12 @@ class WordpressJsonWrapper(object):
                 ":",
                 '[{code}] {message}'.format(code=code, message=message)
             ]))
-        else:
+        elif 'application/json' in http_response.headers.get('Content-Type'):
             return http_response.json()
+        else:
+            raise WordpressError(" ".join([
+                "Expected JSON response but got",
+                http_response.headers.get('Content-Type')]))
 
 
 if __name__ == '__main__':
