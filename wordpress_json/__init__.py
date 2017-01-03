@@ -243,18 +243,18 @@ class WordpressJsonWrapper(object):
         if kw.get('headers'):
             headers = kw.get('headers')
 
-        return (method.upper(), endpoint, url_params, post_data, headers)
+        if 'application/json' not in headers.get('Content-Type', 'application/json'):
+            post_json = None
+        else:
+            post_json = post_data
+            post_data = None
+
+        return (method.upper(), endpoint, url_params, post_data, post_json, headers)
 
     def _request(self, method_name, **kw):
-        method, endpoint, params, data, headers = self._prepare_req(
+        method, endpoint, params, data, json, headers = self._prepare_req(
             method_name, **kw
         )
-
-        if 'application/json' not in headers.get('Content-Type', 'application/json'):
-            json = None
-        else:
-            json = data
-            data = None
 
         http_response = requests.request(
             method,
