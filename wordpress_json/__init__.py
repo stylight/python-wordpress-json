@@ -26,9 +26,9 @@ methods = {
     'list': 'GET',
     'post': 'POST',
     'create': 'POST',
-    'put': 'PUT',
-    'update': 'PUT',
-    'edit': 'PUT',
+    'put': 'POST',
+    'update': 'POST',
+    'edit': 'POST',
     'delete': 'DELETE',
 }
 
@@ -170,7 +170,7 @@ class WordpressJsonWrapper(object):
         >>> wp._prepare_req('get_post', post_id=6)
         ('GET', '/posts/6', {}, {}, {})
         >>> wp._prepare_req('edit_post', post_id=7, data={'foo': 'bar'})
-        ('PUT', '/posts/7', {}, {'foo': 'bar'}, {})
+        ('POST', '/posts/7', {}, {'foo': 'bar'}, {})
         >>> wp._prepare_req('create_post', data={'foo': 'bar'})
         ('POST', '/posts', {}, {'foo': 'bar'}, {})
         >>> wp._prepare_req('delete_post', post_id=8)
@@ -188,7 +188,7 @@ class WordpressJsonWrapper(object):
         >>> wp._prepare_req('create_meta', post_id=91, meta_id=5)
         ('POST', '/posts/91/meta/5', {}, {}, {})
         >>> wp._prepare_req('update_meta', post_id=91, meta_id=5)
-        ('PUT', '/posts/91/meta/5', {}, {}, {})
+        ('POST', '/posts/91/meta/5', {}, {}, {})
         >>> wp._prepare_req('get_user', user_id=4)
         ('GET', '/users/4', {}, {}, {})
         >>> wp._prepare_req('get_user', user_id='me')
