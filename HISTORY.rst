@@ -6,9 +6,15 @@ Release History
 0.x.x (2017-xx-xx)
 ++++++++++++++++++
 
+**New Features**
+
+- Support non-JSON data in requests
+
 **Behavioural Changes**
 
-- Use POST instead of PUT for update requests - may not work with Wordpress versions below 4.7
+- Use POST instead of PUT for update requests. This may not work with Wordpress
+  versions below 4.7.
+- Raise an error if the Content-Type on response is not JSON.
 
 0.2.4 (2016-08-17)
 ++++++++++++++++++
