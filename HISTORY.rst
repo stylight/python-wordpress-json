@@ -3,7 +3,14 @@
 Release History
 ---------------
 
-0.x.x (2017-xx-xx)
+0.3.1 (2017-02-22)
+++++++++++++++++++
+
+**Documentation**
+
+- Fix changelog
+
+0.3.0 (2017-02-22)
 ++++++++++++++++++
 
 **New Features**
