@@ -3,6 +3,13 @@
 Release History
 ---------------
 
+0.x.x (2017-xx-xx)
+++++++++++++++++++
+
+**Behavioural Changes**
+
+- Use POST instead of PUT for update requests - may not work with Wordpress versions below 4.7
+
 0.2.4 (2016-08-17)
 ++++++++++++++++++
 
